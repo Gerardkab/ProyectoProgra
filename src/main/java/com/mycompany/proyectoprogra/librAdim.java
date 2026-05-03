@@ -4,9 +4,20 @@
  */
 package com.mycompany.proyectoprogra;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.FileChooserUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -76,6 +87,9 @@ public class librAdim extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -279,6 +293,42 @@ public class librAdim extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu4);
 
+        jMenu5.setText("Invetario Vendido");
+        jMenu5.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu5MenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(jMenu5);
+
+        jMenu6.setText("Carga de Libros");
+        jMenu6.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu6MenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(jMenu6);
+
+        jMenu7.setText("Descrgar ");
+        jMenu7.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu7MenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(jMenu7);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -411,6 +461,78 @@ public class librAdim extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu3MouseClicked
 
+    private void jMenu5MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu5MenuSelected
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this,"Selecciona el lugar donde quieres descragar");
+        JFileChooser guardar = new JFileChooser();
+        int archivo = guardar.showSaveDialog(this);
+        
+        if(archivo == JFileChooser.APPROVE_OPTION){
+            File ArtVendidos = guardar.getSelectedFile();
+            try(FileWriter escribir = new FileWriter( ArtVendidos+ ".txt")){
+                    escribir.write("INVENTARIO VENDIDO\n\n");
+                    escribir.write("FECHA | LIBRO | PRECIO | CANTIDAD VENDIDA|\n\n");
+                for(int i = 0; i < ProyectoProgra.artvendidos.size(); i++){
+                    articulos art = ProyectoProgra.artvendidos.get(i);
+                    escribir.write (art.fecha + " | " + art.libro + " | " + art.precio + " | " + art.cant + " | " + "\n");
+                   
+                }
+                
+                JOptionPane.showMessageDialog(this,"Los datos se han descargado correctamente");
+            } catch (IOException ex) {
+                System.getLogger(Venta.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_jMenu5MenuSelected
+
+    private void jMenu6MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu6MenuSelected
+        // TODO add your handling code here:
+  JFileChooser selec = new JFileChooser();
+    int seleccion = selec.showOpenDialog(this);
+    if (seleccion == JFileChooser.APPROVE_OPTION) {
+       
+      try {
+          File archivo = selec.getSelectedFile();
+          JSONParser parser = new JSONParser();
+          Object obj = parser.parse(new FileReader(archivo));
+          JSONArray jsonarray = (JSONArray) obj;
+          
+          DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+          
+          for(Object o : jsonarray){
+              JSONObject libroJson = (JSONObject) o;
+              
+              String titulo = (String) libroJson.get("titulo");
+              String autor = (String) libroJson.get("autor");
+              String genero = (String) libroJson.get("genero");
+              double precios = (double) libroJson.get("precio");
+              long cantidad = (long) libroJson.get("cantidad");
+              
+              libros libro = new libros(titulo, autor, genero, precios,(int) cantidad);
+              ProyectoProgra.libros.add(libro);
+              
+              model.addRow(new Object[]{titulo,autor,genero,precios,cantidad});
+                 
+          }
+          JOptionPane.showMessageDialog(this, "Los libros fueron cargados correctamente");
+          
+      } catch (FileNotFoundException ex) {
+          System.getLogger(librAdim.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+      } catch (IOException ex) {
+          System.getLogger(librAdim.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+      } catch (ParseException ex) {
+          System.getLogger(librAdim.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+      }
+            
+    } 
+    }//GEN-LAST:event_jMenu6MenuSelected
+
+    private void jMenu7MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu7MenuSelected
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu7MenuSelected
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -425,6 +547,9 @@ public class librAdim extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

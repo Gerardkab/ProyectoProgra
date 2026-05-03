@@ -8,6 +8,6 @@ package com.mycompany.proyectoprogra;
  *
  * @author gerardo
  */
-public class inventario {
+public class Filewrite {
     
 }

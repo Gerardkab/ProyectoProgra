@@ -20,16 +20,16 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
 /**
  *
  * @author gerardo
  */
 public class consultaUser extends javax.swing.JFrame {
-    
+
     private usuarios usuario;
 
-    /**·
+    /**
+     * ·
      * Creates new form consultaUser
      */
     public consultaUser() {
@@ -37,25 +37,25 @@ public class consultaUser extends javax.swing.JFrame {
         jComboBox1.removeAllItems();
         jComboBox1.addItem("Administrador");
         jComboBox1.addItem("Vendedor");
-        
+
         dibujartabla();
         jPanel1.setVisible(false);
-        
+
     }
-    
+
     public void dibujartabla() {
-        DefaultTableModel t = new DefaultTableModel(new String[]{"USER","NAME","PASSWORD","ROLE"},ProyectoProgra.usuarios.size());
+        DefaultTableModel t = new DefaultTableModel(new String[]{"USER", "NAME", "PASSWORD", "ROLE"}, ProyectoProgra.usuarios.size());
         jTable1.setModel(t);
-        
+
         TableModel tabla = jTable1.getModel();
-        
-        for(int i = 0; i<ProyectoProgra.usuarios.size();i++){
+
+        for (int i = 0; i < ProyectoProgra.usuarios.size(); i++) {
             usuarios u = ProyectoProgra.usuarios.get(i);
             tabla.setValueAt(u.usuario, i, 0);
             tabla.setValueAt(u.nombre, i, 1);
             tabla.setValueAt(u.contra, i, 2);
             tabla.setValueAt(u.rol, i, 3);
-        }     
+        }
     }
 
     /**
@@ -312,31 +312,29 @@ public class consultaUser extends javax.swing.JFrame {
 
     private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
         // TODO add your handling code here:
-        
+
         int borrar = jTable1.getSelectedRow();
-        if(borrar>-1){
-            if(borrar==0){
+        if (borrar > -1) {
+            if (borrar == 0) {
                 JOptionPane.showMessageDialog(this, "No puedes eliminimar al administador");
+            } else {
+
+                if (JOptionPane.showConfirmDialog(this, "Estas seguro de borrar este usuario?") == 0) {
+                    ProyectoProgra.usuarios.remove(borrar);
+                    JOptionPane.showMessageDialog(this, "El usuario se ha eleminado correctamente");
+                    dibujartabla();
+                }
             }
-            else{
-                
-              if(JOptionPane.showConfirmDialog(this,"Estas seguro de borrar este usuario?")==0){
-            ProyectoProgra.usuarios.remove(borrar);
-               JOptionPane.showMessageDialog(this, "El usuario se ha eleminado correctamente");
-               dibujartabla();
-          }
-         }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un elemento para eliminar");
         }
-            else{
-            JOptionPane.showMessageDialog(this,"Seleccione un elemento para eliminar");
-        }
-            
+
     }//GEN-LAST:event_jMenu2MenuSelected
 
     private void jMenu3MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu3MenuSelected
         // TODO add your handling code here:
-         jPanel1.setVisible(true);
-         
+        jPanel1.setVisible(true);
+
     }//GEN-LAST:event_jMenu3MenuSelected
 
     private void jMenu6MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu6MenuSelected
@@ -344,7 +342,7 @@ public class consultaUser extends javax.swing.JFrame {
         nuevousuario u = new nuevousuario();
         u.setVisible(true);
         dibujartabla();
-        
+
     }//GEN-LAST:event_jMenu6MenuSelected
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -366,106 +364,100 @@ public class consultaUser extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(usuario!=null){
-                             
-        usuario.usuario = jTextField1.getText();
-        usuario.nombre = jTextField2.getText();
-        usuario.contra =jTextField3.getText();
-        
-        String rol = jComboBox1.getSelectedItem().toString();
-        
-        if(rol.equals("Administrador")){
-            usuario.rol = 1;
+        if (usuario != null) {
+
+            usuario.usuario = jTextField1.getText();
+            usuario.nombre = jTextField2.getText();
+            usuario.contra = jTextField3.getText();
+
+            String rol = jComboBox1.getSelectedItem().toString();
+
+            if (rol.equals("Administrador")) {
+                usuario.rol = 1;
+            } else {
+                usuario.rol = 2;
+            }
+            dibujartabla();
         }
-        else{
-            usuario.rol= 2;
-        }
-        dibujartabla();
-      }
-       JOptionPane.showMessageDialog(this, "Se ha modificado el usuario correctamente");
-       jTextField1.setText("");
-       jTextField2.setText("");
-       jTextField3.setText("");        
+        JOptionPane.showMessageDialog(this, "Se ha modificado el usuario correctamente");
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        
+
         int editar = jTable1.getSelectedRow();
-         if(editar >-1){
-             if(editar==0){
-                 JOptionPane.showMessageDialog(this,"No puedes modificar el Administrador");
-                 
-             }
-             else{
-                 
-            usuario = ProyectoProgra.usuarios.get(editar);
-             
-            jTextField1.setText(usuario.usuario);
-            jTextField2.setText(usuario.nombre);
-            jTextField3.setText(usuario.contra);
-            jComboBox1.setSelectedIndex(usuario.rol-1);
-             }  
-         }
-         else{
-             JOptionPane.showMessageDialog(this, "Seleccione un elemento a editar");
-         }
+        if (editar > -1) {
+            if (editar == 0) {
+                JOptionPane.showMessageDialog(this, "No puedes modificar el Administrador");
+
+            } else {
+
+                usuario = ProyectoProgra.usuarios.get(editar);
+
+                jTextField1.setText(usuario.usuario);
+                jTextField2.setText(usuario.nombre);
+                jTextField3.setText(usuario.contra);
+                jComboBox1.setSelectedIndex(usuario.rol - 1);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un elemento a editar");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnCargarUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarUsersActionPerformed
         // TODO add your handling code here:
-                JFileChooser selec = new JFileChooser();
+        JFileChooser selec = new JFileChooser();
         int seleccion = selec.showOpenDialog(this);
-        if(seleccion == JFileChooser.APPROVE_OPTION){
-            try{
-            File archivo = selec.getSelectedFile();
-            
-        DocumentBuilderFactory lector = DocumentBuilderFactory.newInstance();
-        DocumentBuilder construye = lector.newDocumentBuilder();
-        Document documento = construye.parse(archivo);
-        documento.getDocumentElement().normalize();
-        
-                NodeList lista =documento.getElementsByTagName("usuario");
-                
-                for(int i = 0; i < lista.getLength(); i++){
-                     Node nodo =lista.item(i);
-                     if(nodo.getNodeType() == Node.ELEMENT_NODE){
-                         Element elemento = (Element) nodo;    
-                         
-                         
-                    try{
-                         String user = elemento.getElementsByTagName("user").item(0).getTextContent();
-                         String nombre = elemento.getElementsByTagName("nombre").item(0).getTextContent();
-                         
-                         String contra = elemento.getElementsByTagName("contraseña").item(0).getTextContent();
-                         String rolText = elemento.getElementsByTagName("rol").item(0).getTextContent();
-                         int rol =rolText.equalsIgnoreCase("Administrador") ? 1 : 2;
-                         
-                         usuarios nuevo = new usuarios(user,nombre,contra,rol);
-                         ProyectoProgra.usuarios.add(nuevo);                         
-                         
-                     }catch(NullPointerException e){
-                         
-                     }
-                         
-                     }
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            try {
+                File archivo = selec.getSelectedFile();
+
+                DocumentBuilderFactory lector = DocumentBuilderFactory.newInstance();
+                DocumentBuilder construye = lector.newDocumentBuilder();
+                Document documento = construye.parse(archivo);
+                documento.getDocumentElement().normalize();
+
+                NodeList lista = documento.getElementsByTagName("usuario");
+
+                for (int i = 0; i < lista.getLength(); i++) {
+                    Node nodo = lista.item(i);
+                    if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                        Element elemento = (Element) nodo;
+
+                        try {
+                            String user = elemento.getElementsByTagName("user").item(0).getTextContent();
+                            String nombre = elemento.getElementsByTagName("nombre").item(0).getTextContent();
+
+                            String contra = elemento.getElementsByTagName("contraseña").item(0).getTextContent();
+                            String rolText = elemento.getElementsByTagName("rol").item(0).getTextContent();
+                            int rol = rolText.equalsIgnoreCase("Administrador") ? 1 : 2;
+
+                            usuarios nuevo = new usuarios(user, nombre, contra, rol);
+                            ProyectoProgra.usuarios.add(nuevo);
+
+                        } catch (NullPointerException e) {
+
+                        }
+
+                    }
                 }
 
-                    dibujartabla();
-              JOptionPane.showMessageDialog(this, "Los usuarios fueron cargados correctamente");
-                
-        
-         }  catch (ParserConfigurationException |SAXException | IOException ex) {
-             JOptionPane.showMessageDialog(this, "No se puedo cargar el archivo XML");
-         
-          }
+                dibujartabla();
+                JOptionPane.showMessageDialog(this, "Los usuarios fueron cargados correctamente");
+
+            } catch (ParserConfigurationException | SAXException | IOException ex) {
+                JOptionPane.showMessageDialog(this, "No se puedo cargar el archivo XML");
+
+            }
         }
     }//GEN-LAST:event_btnCargarUsersActionPerformed
 
     /**
      * @param args the command line arguments
      */
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargarUsers;

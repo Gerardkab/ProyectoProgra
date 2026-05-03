@@ -7,6 +7,7 @@ package com.mycompany.proyectoprogra;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ import javax.swing.table.TableModel;
  * @author gerardo
  */
 public class Cuponadmin extends javax.swing.JFrame {
-    
+
     private cupones cupones;
 
     /**
@@ -27,23 +28,24 @@ public class Cuponadmin extends javax.swing.JFrame {
      */
     public Cuponadmin() {
         initComponents();
-        
+
         jPanel1.setVisible(false);
         dibujartabla();
-       
+
     }
-    
-    public void dibujartabla(){
-        DefaultTableModel t = new DefaultTableModel(new String[]{"CUPONES","TIPO","VALOR DEL DESCUENTO","FECHA DE VENCIMIENTO"},ProyectoProgra.cupones.size());
+
+    public void dibujartabla() {
+        DefaultTableModel t = new DefaultTableModel(new String[]{"CUPONES", "TIPO", "VALOR DEL DESCUENTO", "FECHA DE VENCIMIENTO", "FECHA DE CREACION"}, ProyectoProgra.cupon.size());
         jTable1.setModel(t);
-        
+
         TableModel tabla = jTable1.getModel();
-        for(int i = 0; i<ProyectoProgra.cupones.size();i++){
-            cupones c = ProyectoProgra.cupones.get(i);
+        for (int i = 0; i < ProyectoProgra.cupon.size(); i++) {
+            cupones c = ProyectoProgra.cupon.get(i);
             tabla.setValueAt(c.cupones, i, 0);
             tabla.setValueAt(c.tipo, i, 1);
             tabla.setValueAt(c.descuento, i, 2);
             tabla.setValueAt(c.fecha, i, 3);
+            tabla.setValueAt(c.fechacreacion, i, 4);
 
         }
     }
@@ -75,6 +77,8 @@ public class Cuponadmin extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -248,6 +252,30 @@ public class Cuponadmin extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu4);
 
+        jMenu5.setText("Actualizar Tabla");
+        jMenu5.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu5MenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(jMenu5);
+
+        jMenu6.setText("Descargar Cupones");
+        jMenu6.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu6MenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(jMenu6);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,9 +311,9 @@ public class Cuponadmin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        if(cupones!=null){
-           
+
+        if (cupones != null) {
+
             cupones.cupones = jTextField1.getText();
             cupones.descuento = Integer.parseInt(jTextField2.getText());
             cupones.tipo = jTextField3.getText();
@@ -293,7 +321,7 @@ public class Cuponadmin extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this, "El cupon se ha modificado correctamente");
         dibujartabla();
-  
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -316,19 +344,17 @@ public class Cuponadmin extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-       
+
         int editar = jTable1.getSelectedRow();
-        if(editar >-1){
-            
-           cupones = ProyectoProgra.cupones.get(editar);
-           jTextField1.setText(cupones.cupones);
-           jTextField2.setText(String.valueOf(cupones.descuento));
-           jTextField3.setText(cupones.tipo);
-                
-           
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"Seleccione elemento a modificar");
+        if (editar > -1) {
+
+            cupones = ProyectoProgra.cupon.get(editar);
+            jTextField1.setText(cupones.cupones);
+            jTextField2.setText(String.valueOf(cupones.descuento));
+            jTextField3.setText(cupones.tipo);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione elemento a modificar");
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -341,24 +367,23 @@ public class Cuponadmin extends javax.swing.JFrame {
     private void jMenu2MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu2MenuSelected
         // TODO add your handling code here:
         jPanel1.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenu2MenuSelected
 
     private void jMenu4MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu4MenuSelected
         // TODO add your handling code here:
-         int borrar = jTable1.getSelectedRow();
-        if(borrar>-1){
-            
-            if(JOptionPane.showConfirmDialog(this,"Seguro que quieres eliminar este elemento?")==0){
-                ProyectoProgra.cupones.remove(borrar);
+        int borrar = jTable1.getSelectedRow();
+        if (borrar > -1) {
+
+            if (JOptionPane.showConfirmDialog(this, "Seguro que quieres eliminar este elemento?") == 0) {
+                ProyectoProgra.cupon.remove(borrar);
                 JOptionPane.showMessageDialog(this, "El elemento se ha borrado correctamente");
                 dibujartabla();
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona un elemento para eliminar");
         }
-            else{
-                JOptionPane.showMessageDialog(this,"Selecciona un elemento para eliminar");
-            }
-            
+
     }//GEN-LAST:event_jMenu4MenuSelected
 
     private void jMenu3MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu3MenuSelected
@@ -371,47 +396,77 @@ public class Cuponadmin extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser selec = new JFileChooser();
         int seleccion = selec.showOpenDialog(this);
-        
-        if(seleccion == JFileChooser.APPROVE_OPTION){
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
             File archivo = selec.getSelectedFile();
-            
-            try{
+
+            try {
                 BufferedReader lector = new BufferedReader(new FileReader(archivo));
                 String linea;
                 boolean primeralinea = true;
-                
-               while((linea = lector.readLine()) != null){
-                   if(primeralinea){
-                       primeralinea = false;
-                       continue;
-                   }
-                   String[] datos = linea.split("\\|");
-                    if(datos.length >= 4 ){
+
+                while ((linea = lector.readLine()) != null) {
+                    if (primeralinea) {
+                        primeralinea = false;
+                        continue;
+                    }
+                    String[] datos = linea.split("\\|");
+                    if (datos.length >= 4) {
                         cupones c = new cupones();
                         c.cupones = datos[0].trim();
                         c.tipo = datos[1].trim();
                         c.descuento = Double.parseDouble(datos[2].trim());
                         c.fecha = datos[3].trim();
+                        c.fechacreacion = datos[4].trim();
                         
-                        ProyectoProgra.cupones.add(c);
+                        
+                        ProyectoProgra.cupon.add(c);
+
                     }
-               }
-                
-               lector.close();
-               dibujartabla();
-               JOptionPane.showMessageDialog(this,"Los datos fueron cargados correctamente");
-               
-            }catch(IOException | NumberFormatException e) {
-             JOptionPane.showMessageDialog(this,"Hubo un error con cargar el archivo");
-                
-            }   
+                }
+
+                lector.close();
+                dibujartabla();
+                JOptionPane.showMessageDialog(this, "Los datos fueron cargados correctamente");
+
+            } catch (IOException | NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Hubo un error con cargar el archivo");
+
             }
+        }
     }//GEN-LAST:event_btncuponesActionPerformed
+
+    private void jMenu5MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu5MenuSelected
+        // TODO add your handling code here:
+        dibujartabla();
+    }//GEN-LAST:event_jMenu5MenuSelected
+
+    private void jMenu6MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu6MenuSelected
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this,"Selecciona el lugar donde quieres guardar");
+        JFileChooser guardar = new JFileChooser();
+        int archivo = guardar.showSaveDialog(this);
+        
+        if(archivo == JFileChooser.APPROVE_OPTION){
+            File cupon = guardar.getSelectedFile();
+            try(FileWriter escribir = new FileWriter(cupon + ".csv")){
+                escribir.write("HISTORIAL DE CUPONES");
+                escribir.write("CUPON | TIPO DE CUPON| VALOR| FECHA DE VENCIMIENTO | FECHA DE CREACION|");
+                escribir.write("\n");
+                for(int i = 0; i < ProyectoProgra.cupon.size(); i++){
+                    cupones cupons = ProyectoProgra.cupon.get(i);
+                    escribir.write(cupons.cupones + " | " + cupons.tipo + " | " + cupons.descuento + " | " + cupons.fecha + " | " + cupons.fechacreacion + " | " + "\n\n");
+            }
+                        JOptionPane.showMessageDialog(this, "Los datos se han descargado correctamente");
+                        } catch (IOException ex) {
+                System.getLogger(Cuponadmin.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        }
+    }//GEN-LAST:event_jMenu6MenuSelected
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncupones;
@@ -425,6 +480,8 @@ public class Cuponadmin extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

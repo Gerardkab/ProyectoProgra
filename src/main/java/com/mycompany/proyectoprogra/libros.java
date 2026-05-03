@@ -15,4 +15,16 @@ public class libros {
     public double precios;
     public int cantidad;
     
+    public libros(){
+        
+    }
+    
+ public libros(String titulo, String autor, String genero, double precios, int cantidad){
+     this.titulo = titulo;
+     this.autor = autor;
+     this.genero = genero;
+     this.precios = precios;
+     this.cantidad = cantidad;
+ }  
+    
 }

@@ -8,12 +8,6 @@ package com.mycompany.proyectoprogra;
  *
  * @author gerardo
  */
-public class cupones {
-    
-    public String cupones;
-    public double descuento;
-    public String tipo;
-    public String fecha;
-    public String fechacreacion;
+public class archivosbinarios {
     
 }

@@ -13,4 +13,6 @@ public class articulos {
     public String libro;
     public String total;
     public String totalsinIva;
+    public String fecha;
+    public String precio;
 }

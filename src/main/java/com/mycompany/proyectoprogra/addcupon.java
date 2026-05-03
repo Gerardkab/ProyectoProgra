@@ -26,6 +26,7 @@ public class addcupon extends javax.swing.JFrame {
         jComboBox1.addItem("Efectivo");
         PanelEfectivo.setVisible(false);
         PanelPorcentaje.setVisible(false);
+        txtfecha.setText(fecha());
     }
 
     /**
@@ -50,7 +51,9 @@ public class addcupon extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         PanelEfectivo = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtfecha = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -123,12 +126,6 @@ public class addcupon extends javax.swing.JFrame {
 
         jLabel6.setText("Valor Q del descuento: ");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout PanelEfectivoLayout = new javax.swing.GroupLayout(PanelEfectivo);
         PanelEfectivo.setLayout(PanelEfectivoLayout);
         PanelEfectivoLayout.setHorizontalGroup(
@@ -137,7 +134,7 @@ public class addcupon extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                 .addContainerGap())
         );
         PanelEfectivoLayout.setVerticalGroup(
@@ -146,9 +143,13 @@ public class addcupon extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(PanelEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
+
+        jLabel7.setText("FECHA DE CREACION:");
+
+        txtfecha.setText("DD/MM/YYYY");
 
         jMenu1.setText("Exit");
         jMenu1.addMenuListener(new javax.swing.event.MenuListener() {
@@ -179,22 +180,29 @@ public class addcupon extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1)
-                                .addGap(35, 35, 35))
+                                .addGap(39, 39, 39))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(PanelEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(PanelPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(PanelEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(PanelPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtfecha))
+                                .addContainerGap(329, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,17 +222,18 @@ public class addcupon extends javax.swing.JFrame {
                         .addComponent(PanelPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(PanelEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10)
-                .addComponent(jLabel3)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(17, 17, 17))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtfecha))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -240,48 +249,42 @@ public class addcupon extends javax.swing.JFrame {
         cupones c = new cupones();
         c.cupones = jLabel4.getText();
         c.tipo = jComboBox1.getSelectedItem().toString();
-        
-        try{
-            if(c.tipo.equals("Porcentaje")){
-                c.descuento = Integer.parseInt(jTextField1.getText());
-                
-            }else if(c.tipo.equals("Efectivo")){
-                c.descuento = Integer.parseInt(jTextField2.getText());
+        c.fechacreacion = txtfecha.getText();
+
+        try {
+            if (c.tipo.equals("Porcentaje")) {
+                c.descuento = Double.parseDouble(jTextField1.getText());
+
+            } else if (c.tipo.equals("Efectivo")) {
+                c.descuento = Double.parseDouble(jTextField4.getText());
             }
-               
-        
-       String fecha = jTextField3.getText();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaDate = formato.parse(fecha);
-        c.fecha = formato.format(fechaDate);
-        
-        
-        
-        
-       
-        
-        ProyectoProgra.cupones.add(c);
-        
-        JOptionPane.showMessageDialog(this,"Se agrego correctamente un cupon");
-        
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        
-        }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this,"Ingresa un valor al descuento");
-           
-        }catch(ParseException e){
+
+            String fecha = jTextField3.getText();
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaDate = formato.parse(fecha);
+            c.fecha = formato.format(fechaDate);
+
+            ProyectoProgra.cupon.add(c);
+
+            JOptionPane.showMessageDialog(this, "Se agrego correctamente un cupon");
+
+            jTextField1.setText("");
+            jTextField4.setText("");
+            jTextField3.setText("");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingresa un valor al descuento");
+
+        } catch (ParseException e) {
             JOptionPane.showMessageDialog(this, "EL formato de la fecha es incorrecto, "
                     + "intenta con dd/MM/yyyy");
-            
+
         }
-        
-                    
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
-    
+
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
@@ -291,12 +294,12 @@ public class addcupon extends javax.swing.JFrame {
         String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder codigo = new StringBuilder();
         Random random = new Random();
-        
-        for(int i = 0; i< 4; i++) {
+
+        for (int i = 0; i < 4; i++) {
             int index = random.nextInt(caracteres.length());
             codigo.append(caracteres.charAt(index));
         }
-         jLabel4.setText(codigo.toString());
+        jLabel4.setText(codigo.toString());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -306,29 +309,29 @@ public class addcupon extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
         Object selectedItem = jComboBox1.getSelectedItem();
-        
-        if(selectedItem != null){
-            
-        String seleccion = jComboBox1.getSelectedItem().toString();
-        if(seleccion.equals("Porcentaje")){
-            PanelPorcentaje.setVisible(true);
-            PanelEfectivo.setVisible(false);
-        } else if (seleccion.equals("Efectivo")){
-            PanelPorcentaje.setVisible(false);
-            PanelEfectivo.setVisible(true);
+
+        if (selectedItem != null) {
+
+            String seleccion = jComboBox1.getSelectedItem().toString();
+            if (seleccion.equals("Porcentaje")) {
+                PanelPorcentaje.setVisible(true);
+                PanelEfectivo.setVisible(false);
+            } else if (seleccion.equals("Efectivo")) {
+                PanelPorcentaje.setVisible(false);
+                PanelEfectivo.setVisible(true);
+            }
+
         }
-        
-       }
     }//GEN-LAST:event_jComboBox1ActionPerformed
+    public String fecha() {
+        Date fecha = new Date();
+        SimpleDateFormat formatofecha = new SimpleDateFormat("dd/MM/YYYY");
+        return formatofecha.format(fecha);
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelEfectivo;
@@ -342,10 +345,12 @@ public class addcupon extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel txtfecha;
     // End of variables declaration//GEN-END:variables
 }

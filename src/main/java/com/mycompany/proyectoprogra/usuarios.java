@@ -4,11 +4,13 @@
  */
 package com.mycompany.proyectoprogra;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gerardo
  */
-public class usuarios {
+public class usuarios implements Serializable{
     
     public  String usuario;
     public  String nombre;

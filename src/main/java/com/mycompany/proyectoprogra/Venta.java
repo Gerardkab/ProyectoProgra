@@ -6,6 +6,10 @@ package com.mycompany.proyectoprogra;
 
 import java.awt.Color;
 import java.awt.TextField;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -58,18 +62,16 @@ public class Venta extends javax.swing.JFrame {
 
     }
     
-
-            
-    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,13 +87,6 @@ public class Venta extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setText("Actualizar Tabla");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jMenu1.setText("Exit");
         jMenu1.addMenuListener(new javax.swing.event.MenuListener() {
@@ -117,6 +112,30 @@ public class Venta extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setText("Actualizar Tabla");
+        jMenu4.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu4MenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(jMenu4);
+
+        jMenu3.setText("Exportar Ventas");
+        jMenu3.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu3MenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -126,21 +145,14 @@ public class Venta extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(50, 50, 50))
+                .addGap(196, 196, 196))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -157,17 +169,47 @@ public class Venta extends javax.swing.JFrame {
         av.setVisible(true);
     }//GEN-LAST:event_jMenu2MenuSelected
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jMenu4MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu4MenuSelected
         // TODO add your handling code here:
         dibujartabla();
         JOptionPane.showMessageDialog(this,"La tabla se actualizo Correctamente");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jMenu4MenuSelected
+
+    private void jMenu3MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu3MenuSelected
+        // TODO add your handling code here:
+        
+        JOptionPane.showMessageDialog(this,"Selecciona el lugar donde quieres guardar");
+        JFileChooser guardar = new JFileChooser();
+        int archivo = guardar.showSaveDialog(this);
+        
+        if(archivo == JFileChooser.APPROVE_OPTION){
+            File Ventas = guardar.getSelectedFile();
+            try(FileWriter escribir = new FileWriter(Ventas + ".txt")){
+                escribir.write("HISTORIAL DE VENTAS");
+                escribir.write("CLIENTE | NIT | DIRECCION | TOTAL | TOTAL SIN IVA| VENDEDOR | FECHA | HORA");
+                escribir.write("\n");
+                for(int i = 0; i < ProyectoProgra.vent.size(); i++){
+                    Vent venta = ProyectoProgra.vent.get(i);
+                    escribir.write("VENTA NUM* " + (i + 1) + ":\n");
+                    escribir.write(venta.cliente + " | " + venta.nit + " | " + venta.direc + " | " + venta.ventafinal + " | " + venta.ventatotalsinIva + " | " +  venta.vendedor + " | " + venta.fecha + " | " + venta.hora + " | " + "\n\n");
+                   
+                }
+                
+                JOptionPane.showMessageDialog(this,"Los datos se han descargado correctamente");
+            } catch (IOException ex) {
+                System.getLogger(Venta.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_jMenu3MenuSelected
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
